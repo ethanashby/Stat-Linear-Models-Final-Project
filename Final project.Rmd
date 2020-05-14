@@ -16,7 +16,7 @@ knitr::opts_chunk$set(fig.pos = 'H')
 
 # Introduction
 
-|     The global espresso coffee market is expected to post a compound annual growth rate close to 7% during 2019-2023 according to market research by Technovio (Technavio 2019). With espresso demand on the rise, researching ways to optimize espresso quality will improve the quality of product for coffee vendors and boost the growth of the espresso and coffee sectors.
+|     The global espresso coffee market is expected to post a compound annual growth rate close to 7% during 2019-2023 according to market research (Technavio 2019). With espresso demand on the rise, researching ways to optimize espresso quality will improve the quality of product for coffee vendors and boost the growth of the espresso and coffee sectors.
 
 |     Espresso is a coffee brewing method that uses hot, pressurized water to extract solid material from a cake of coffee grounds. In this way, espresso coffee differs from traditional filter, plunger, of mocha methods; the high pressures involved (typically up to 15 bar) enable faster brewing and a richer coffee flavor (Farah 2019). 
 
@@ -37,7 +37,7 @@ knitr::kable(examples, caption="Example data for each of the 6 treatment combina
 
 |       In the experiment designed by Masella et al. (2015), six different espresso treatments were applied (Table 1): foam indexes were measured at combinations of three different water temperatures (levels: 75, 85, 95 C) and 2 different pressures (levels: 15, 20 bar). There were nine replicates at each of the six treatment combinations. The study design was balanced, permitting analysis using analysis of variance (ANOVA).
 
-|       A two factor ANOVA was performed on the data to assess factor effects and interactions. While predictor variables (pressure and temperature) are in numerical units, these variables were encoded as categorical variables, since this avoids specification of a certain statistical relation between the predictor and response (ex a linear response). The validity of ANOVA assumptions were assessed using diagnostic plots of the residuals.
+|       A two factor ANOVA was performed on the data to assess factor effects and interactions. While predictor variables (pressure and temperature) were in numerical units, these variables were encoded as categorical variables, since this avoids specification of a certain statistical relation between the predictor and response (ex a linear response). The validity of ANOVA assumptions were assessed using diagnostic plots.
 
 |       Possible data transformations and additivity/interactivity of the model were assessed using interaction plots and Box-Cox method.
 
@@ -76,7 +76,7 @@ fit.i <- aov(foamIndx~factor(tempC)*factor(prssBar), data=espresso)
 knitr::kable(anova(fit.i), caption="Signficance of main effects and interactions in interactive model")
 ```
 
-|       Additionally, possible transformations of the response variable as suggested by the Box-Cox method were considered but ultimately eschewed for two reasons. First, the inability to backtransform the response meant that the interpretability of local inference (Tukey intervals) would be limited. For the purposes of informing future coffee-brewing methods, intervals that represented mean changes in foam index would be more preferable than intervals that represesnted reciprocal square roots of mean foam index changes (the transformation suggested by Box-Cox). Second, the additive model with an untransformed response variable did not appear to violate the ANOVA asssumptions.
+|       Additionally, possible transformations of the response variable as suggested by the Box-Cox method were considered but ultimately eschewed for two reasons. First, the inability to backtransform the response meant that the interpretability of local inference (Tukey intervals) would be limited. For the purposes of informing future coffee-brewing methods, intervals that represented mean changes in foam index would be preferable to intervals that represesnted reciprocal square roots of mean foam index changes (the transformation suggested by Box-Cox). Second, the additive model with an untransformed response variable appeared permissable, as it did not appear to violate the ANOVA asssumptions.
 
 ```{r, echo=FALSE, fig.cap="Diagnostic plots to check ANOVA assumptions"}
 fit.a <- aov(foamIndx~factor(tempC)+factor(prssBar), data=espresso)
@@ -92,7 +92,7 @@ results<-TukeyHSD(fit.a) #just CIs for the alpha comparisons
 knitr::kable(results$`factor(tempC)`, caption="Tukey intervals for pairwise comparisons of temperatures")
 ```
 
-|       Local inference using Tukey intervals identified that espresso foam index was significantly lower in the 85 and 95 C temperature groups as compared to the 75 C group (p_adj=0.04 and 0.008 respectively) (Table 4). Espresso  generated at 75 C had a 16 and 20% higher foam index compared to espresso generated at 85 and 95 C respectively. No significant difference in foam index was observed between 85 and 95 C (p_adj=0.824). 
+|       Local inference using Tukey intervals identified that espresso foam index was significantly lower in the 85 and 95 C temperature groups as compared to the 75 C group (p_adj=0.04 and 0.008 respectively) (Table 4). Espresso  generated at 75 C had a 16% and 20% higher foam index compared to espresso generated at 85 and 95 C respectively. No significant difference in foam index was observed between 85 and 95 C (p_adj=0.824). 
 | 
 ```{r, echo=FALSE}
 knitr::kable(results$`factor(prssBar)`, caption="Tukey interval for pairwise comparison of pressures")
@@ -102,15 +102,15 @@ knitr::kable(results$`factor(prssBar)`, caption="Tukey interval for pairwise com
 
 # Conclusion
 
-|       Analysis of data by Masella et al (2015) demonstrated that temperature and pressure have significant effects on the foam index of espresso coffee. In particular, 75 C temperatures resulted in a higher foam index than espressos made at 85 and 95 C (p_adj=0.04 and 0.008 respectively). 75 C generated 16% and 20% higher foam index than these higher temperatures. No significant difference in foam index was seen between 85 and 95 C (p_adj=0.824). High pressure (20 bar) resulted in significantly higher foam index than that for espresso made under a lower pressure of 15 bar (p_adj=0.0004). 20 bar of pressure generated on average a 20% higher espresso foam index than the 15 bar method.
+|       Analysis of data by Masella et al (2015) demonstrated that temperature and pressure have significant effects on the foam index of espresso coffee. In particular, temperatures of 75 C resulted in a higher foam index than espressos made at 85 and 95 C (p_adj=0.04 and 0.008 respectively). 75 C generated 16% and 20% higher foam index than these higher temperatures. No significant difference in foam index was seen between 85 and 95 C (p_adj=0.824). High pressure (20 bar) resulted in significantly higher foam index than that for espresso made under a lower pressure of 15 bar (p_adj=0.0004). 20 bar of pressure generated on average a 20% higher espresso foam index than the 15 bar method.
 
 |       Thus, Masella et al's hypothesis that temperature and pressure influence espresso foam index was confirmed. This analysis also suggested actionable ways to brew higher-foam coffee. These results indicated that lower temperatures (75 C) generated larger amounts of foam than compared to higher temperatures (85, 95 C). Second, higher pressures (20 bar) generating more foam compared to traditional espresso-making pressures (15 bar). Thus, new espresso-making techniques aiming to make foamier espressos should employ lower temperature, higher pressure methods. 
 
 |       In reality, customers have different foam preferences, and the ability to adapt the foam quantities to individual customers could be beneficial for coffee vendors. New brewing methods as proposed by Masella et al (2015) that allow for finer control of temperature and pressure will afford finer control over amount of crema in a customer's espresso.
 
-|       There are some next steps that warrant investigation. Foam index measures the *quantity* of foam in a drink, but a similarly designed study could explore whetehr *foam persistance* differs between different temperature and pressure treatments. Foam should persist long enough to be enjoyed by the customer (2 mins), so studying effects on foam persistance may help tailor brewing conditions to customer preference.
+|       There are some next steps that warrant investigation. Foam index measures the *quantity* of foam in a drink, but a similarly designed study could explore whether *foam persistance* differs between different temperature and pressure treatments. Foam should persist long enough to be enjoyed by the customer (2 mins), so studying effects on foam persistance may help tailor brewing conditions to customer preference.
 
-|       Additionally, various other factors are known to impact foam quantity and quality, and these should be investigated in similar future experiments. Namely, coarseness of the grind, the darkness of the roast, the freshness of the bean, and the type of machine all impact the amount of crema generated (Goodwin 2019). The significance and effect size of these factors should be assessed in order to provide more information to espresso vendors, enable personalization espresso to individuals, and refine the art brewing espresso.
+|       Additionally, various other factors are known to impact foam quantity and quality, and these should be investigated in future experiments. Namely, coarseness of the grind, the darkness of the roast, the freshness of the bean, and the type of machine all impact the amount of crema generated (Goodwin 2019). The significance and effect size of these factors should be assessed in order to provide more information to espresso vendors, enable personalization of espressos to individuals, and refine the art brewing espresso.
 
 # References
 
